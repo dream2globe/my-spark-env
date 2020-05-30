@@ -120,20 +120,25 @@ venv.bak/
 # mkdocs documentation
 /site
 
-# mypy
+# test
 .mypy_cache/
 .dmypy.json
 dmypy.json
+.pytest_cache/
 
 # Pyre type checker
 .pyre/
+
+# vscode
+.vscode/
 
 # autoenv
 .autoenv.leave
 .autoenv
 
-# vscode
-.vscode
+# profile
+*_output.png
+*.pstats
 
-# jupyter lab
-.ipynb_checkpoints
+# ipython
+.ipynb_checkpoints/

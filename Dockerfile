@@ -5,6 +5,17 @@ LABEL maintainer="shyeon.kang@gmail.com"
 
 USER root
 
+RUN pip --no-cache-dir install \
+	numpy \
+	pandas \
+	scikit-learn \
+	xgboost \
+	lightgbm \
+	seaborn \
+	requests \
+	sqlalchemy \
+	mysqlclient
+
 RUN echo "c.NotebookApp.password='sha1:285c458cbb60:ac50e00375f1be469440b7487b0ebf13fd447af3'">>~/.jupyter/jupyter_notebook_config.py
 	
 VOLUME ["/home/jovyan/work"]
