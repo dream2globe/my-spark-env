@@ -12,11 +12,11 @@ RUN pip --no-cache-dir install \
 	xgboost \
 	lightgbm \
 	seaborn \
-	requests \
-	sqlalchemy \
-	mysqlclient
+	requests
 
-RUN echo "c.NotebookApp.password='sha1:285c458cbb60:ac50e00375f1be469440b7487b0ebf13fd447af3'">>~/.jupyter/jupyter_notebook_config.py
+RUN echo 'c.NotebookApp.password="sha1:285c458cbb60:ac50e00375f1be469440b7487b0ebf13fd447af3"' >> ~/.jupyter/jupyter_notebook_config.py
+
+ADD https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.zip /usr/local/spark/jars
 	
 VOLUME ["/home/jovyan/work"]
 WORKDIR /home/jovyan/work
