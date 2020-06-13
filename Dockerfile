@@ -20,7 +20,7 @@ WORKDIR /usr/local/spark/jars
 ADD https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.zip /usr/local/spark/jars
 RUN unzip mysql-connector-java-8.0.20.zip mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar
 	&& mv mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar .
-	$$ rm -r mysql-connector-java-8.0.20
+	&& rm -r mysql-connector-java-8.0.20
 	
 VOLUME ["/home/jovyan/work"]
 WORKDIR /home/jovyan/work
