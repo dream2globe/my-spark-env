@@ -18,8 +18,8 @@ RUN echo 'c.NotebookApp.password="sha1:285c458cbb60:ac50e00375f1be469440b7487b0e
 
 WORKDIR /usr/local/spark/jars
 ADD https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.zip /usr/local/spark/jars
-RUN unzip mysql-connector-java-8.0.20.zip mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar
-	&& mv mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar .
+RUN unzip mysql-connector-java-8.0.20.zip mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar \
+	&& mv mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar . \
 	&& rm -r mysql-connector-java-8.0.20
 	
 VOLUME ["/home/jovyan/work"]
