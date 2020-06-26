@@ -11,7 +11,8 @@ RUN pip --no-cache-dir install \
 	scikit-learn \
 	xgboost \
 	lightgbm \
-	requests
+	requests \
+	seaborn 
 
 RUN echo 'c.NotebookApp.password="sha1:285c458cbb60:ac50e00375f1be469440b7487b0ebf13fd447af3"' >> ~/.jupyter/jupyter_notebook_config.py
 
