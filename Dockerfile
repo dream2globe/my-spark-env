@@ -14,6 +14,10 @@ RUN pip --no-cache-dir install \
 
 RUN echo 'c.NotebookApp.password="sha1:285c458cbb60:ac50e00375f1be469440b7487b0ebf13fd447af3"' >> ~/.jupyter/jupyter_notebook_config.py
 
+RUN cp /usr/local/spark/conf/spark-defaults.conf.template /usr/local/spark/conf/spark-defaults.conf \
+	&& echo 'spark.driver.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf \
+	&& echo 'spark.executor.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf
+
 WORKDIR /usr/local/spark/jars
 ADD https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.zip /usr/local/spark/jars
 RUN unzip mysql-connector-java-8.0.20.zip mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar \
