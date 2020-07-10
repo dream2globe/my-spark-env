@@ -1,8 +1,6 @@
 ARG BASE_CONTAINER=jupyter/all-spark-notebook
 FROM $BASE_CONTAINER
 
-LABEL maintainer="shyeon.kang@gmail.com" 
-
 USER root
 
 RUN pip --no-cache-dir install \
