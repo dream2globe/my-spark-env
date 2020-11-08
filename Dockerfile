@@ -33,14 +33,14 @@ RUN cp /usr/local/spark/conf/spark-defaults.conf.template /usr/local/spark/conf/
 	&& echo 'spark.driver.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf \
 	&& echo 'spark.executor.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf
 
-COPY conf/metastore-site.xml /usr/local/spark/conf
-COPY conf/metastore-site.xml ${HIVE_HOME}/conf
-COPY scripts/entrypoint.sh /entrypoint.sh
+# COPY conf/metastore-site.xml /usr/local/spark/conf
+# COPY conf/metastore-site.xml ${HIVE_HOME}/conf
+# COPY scripts/entrypoint.sh /entrypoint.sh
 
-RUN chown root:root -R ${HIVE_HOME} && \
-    chown root:root /entrypoint.sh && chmod +x /entrypoint.sh
+# RUN chown root:root -R ${HIVE_HOME} && \
+#     chown root:root /entrypoint.sh && chmod +x /entrypoint.sh
 
 
-EXPOSE 8888 4040 4041 4042 9083
+# EXPOSE 8888 4040 4041 4042 9083
 
-ENTRYPOINT ["sh", "-c", "/entrypoint.sh"]
+# ENTRYPOINT ["sh", "-c", "/entrypoint.sh"]
