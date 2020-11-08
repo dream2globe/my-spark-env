@@ -18,6 +18,8 @@ RUN cp /usr/local/spark/conf/spark-defaults.conf.template /usr/local/spark/conf/
 	&& echo 'spark.driver.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf \
 	&& echo 'spark.executor.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf
 
+COPY conf/metastore-site.xml /usr/local/spark/conf
+
 WORKDIR /usr/local/spark/jars
 ADD https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.zip /usr/local/spark/jars
 RUN unzip mysql-connector-java-8.0.20.zip mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar \
