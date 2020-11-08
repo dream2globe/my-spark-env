@@ -3,6 +3,21 @@ FROM $BASE_CONTAINER
 
 USER root
 
+WORKDIR /usr/local
+
+ENV HADOOP_VERSION=3.2.0
+ENV METASTORE_VERSION=3.0.0
+
+ENV HADOOP_HOME=/usr/local/hadoop-${HADOOP_VERSION}
+ENV HIVE_HOME=/usr/local/apache-hive-metastore-${METASTORE_VERSION}-bin
+
+RUN curl -L https://www-us.apache.org/dist/hive/hive-standalone-metastore-${METASTORE_VERSION}/hive-standalone-metastore-${METASTORE_VERSION}-bin.tar.gz | tar zxf - && \
+    curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
+    curl -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.tar.gz | tar zxf - && \
+    cp mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar ${HIVE_HOME}/lib/ && \
+    cp mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar /usr/local/spark/jars/. && \
+    rm -rf  mysql-connector-java-8.0.20
+
 RUN pip --no-cache-dir install \
 	numpy \
 	pandas \
@@ -19,16 +34,13 @@ RUN cp /usr/local/spark/conf/spark-defaults.conf.template /usr/local/spark/conf/
 	&& echo 'spark.executor.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"' >> /usr/local/spark/conf/spark-defaults.conf
 
 COPY conf/metastore-site.xml /usr/local/spark/conf
+COPY conf/metastore-site.xml ${HIVE_HOME}/conf
+COPY scripts/entrypoint.sh /entrypoint.sh
 
-WORKDIR /usr/local/spark/jars
-ADD https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.20.zip /usr/local/spark/jars
-RUN unzip mysql-connector-java-8.0.20.zip mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar \
-	&& mv mysql-connector-java-8.0.20/mysql-connector-java-8.0.20.jar . \
-	&& rm -r mysql-connector-java-8.0.20
-	
-VOLUME ["/home/jovyan/work"]
-WORKDIR /home/jovyan/work
+RUN chown root:root -R ${HIVE_HOME} && \
+    chown root:root /entrypoint.sh && chmod +x /entrypoint.sh
 
-EXPOSE 8888 4040 4041
 
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
+EXPOSE 8888 4040 4041 4042 9083
+
+ENTRYPOINT ["sh", "-c", "/entrypoint.sh"]

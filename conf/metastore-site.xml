@@ -1,8 +1,12 @@
 <configuration>
     <property>
         <name>metastore.thrift.uris</name>
-        <value>thrift://metastore:9083</value>
+        <value>thrift://0.0.0.0:9083</value>
         <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
+    </property>
+    <property>
+	<name>hive.metastore.warehouse.dir</name>
+	<value>/home/jovyan/work/metastore</value>
     </property>
     <property>
         <name>metastore.task.threads.always</name>
